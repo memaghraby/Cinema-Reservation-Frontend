@@ -1,0 +1,31 @@
+#movie-details-div-id .movie-details-div{
+    width:100%;
+    color: black;
+}
+@media (max-width:1300px){
+    #movie-details-div-id{
+        width: 1300px;
+    }
+}
+
+#movie-details-div-id .movie-image-div {
+    width: 100%;
+}
+
+#movie-details-div-id .movie-image {
+    width: 100%;
+}
+
+#movie-details-div-id .seats-layout-div {
+    text-align: center;
+    padding: 10% 25%;
+}
+
+#movie-details-div-id .movie-details-button-div{
+    padding: 50px;
+}
+
+#movie-details-div-id .movie-details-button{
+    height: 40px;
+    width: 200px;
+}

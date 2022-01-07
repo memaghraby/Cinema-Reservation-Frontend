@@ -1,0 +1,18 @@
+#movies-list-div {
+    margin: 50px 0px;
+}
+@media (max-width:1200px){
+    #movies-list-div{
+        width: 1200px;
+    }
+}
+
+.movie-list-button-div {
+    text-align: right;
+    padding: 20px;
+}
+
+.movie-list-button {
+    width: 20%;
+    height: 50px;
+}
