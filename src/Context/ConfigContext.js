@@ -1,5 +1,5 @@
 import React, { createContext, Component } from "react";
-
+import axios from "axios";
 export const ConfigContext = createContext();
 /** Class of Configrations to the base URL to switch between backend and mocking service.
  * @extends Component
@@ -10,12 +10,12 @@ class ConfigContextProvider extends Component {
      * @memberof ConfigContextProvider
      *
      */
-    baseURL: "http://localhost:8080",
-  
-  };
+    baseURL: "http://localhost:3001",
 
-  componentDidMount()
-  {}
+  };
+  componentDidMount() {
+    axios.defaults.baseURL = "http://localhost:3001";
+  }
 
   render() {
     return (

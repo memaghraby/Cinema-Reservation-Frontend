@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { ConfigContext } from '../Context/ConfigContext'
 //import "./CreateMovie.css";
 
 /**
@@ -7,85 +9,103 @@ import { Form, Button } from 'react-bootstrap';
  * @extends Component
  */
 export class CreateMovie extends Component {
-    state={
-        "file":"",
-        "title":"",
-        "events":[],
-        "date":"",
-        "startTime":"",
-        "endTime":"",
-        "screeningRoom":""
+    static contextType = ConfigContext;
+    state = {
+        "file": "",
+        "title": "",
+        "events": [],
+        "date": "",
+        "startTime": "",
+        "endTime": "",
+        "screeningRoom": "",
+        "screens": JSON.parse(localStorage.getItem("screenids"))
     }
 
-    componentDidMount(){}
+    componentDidMount() { }
 
 
-    addEvent(){
+    addEvent() {
         let val = {
-            "date":this.state.date,
-            "startTime":this.state.startTime,
-            "endTime":this.state.endTime,
-            "screeningRoom":this.state.screeningRoom
+            "date": new Date(this.state.date).toLocaleDateString('en-US'),
+            "startTime": this.state.startTime,
+            "endTime": this.state.endTime,
+            "screeningRoom": this.state.screeningRoom
         }
         this.state.events.push(val);
         //document.getElementsByName("screeningRoom").value = "";   //set visible values to empty
         this.setState({
-            date:"",
-            startTime:"",
-            endTime:"",
+            date: "",
+            startTime: "",
+            endTime: "",
             screeningRoom: ""
         });
         console.log(this.state.events);
     }
 
-    removeEvent(i){
+    removeEvent(i) {
         let events = this.state.events;
-        events.splice(i,1);
+        events.splice(i, 1);
         this.setState({ events });
         console.log(this.state.events);
     }
 
-    addMovie(){
+    addMovie(e) {
         let val = {
-            "file":this.state.file,
-            "title":this.state.title,
-            "events":this.state.events
+            "file": this.state.file,
+            "title": this.state.title,
+            "events": this.state.events
         }
         console.log(val);
+        var movieFormData = new FormData();
+        movieFormData.append("file", val.file);
+        movieFormData.append("title", val.title);
+        movieFormData.append("events", JSON.stringify(val.events));
+
+        axios.post(this.context.baseURL + '/movies/manager/add', movieFormData, {
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((response) => {
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error.response);
+        });
+        return false;
     }
 
     render() {
         return (
-            <div id='create-movie-div' className='container-fluid' style={{textAlign: "left"}}>
+            <div id='create-movie-div' className='container-fluid' style={{ textAlign: "left" }}>
                 <h1>Add Movie</h1>
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" placeholder="Enter title"  onChange={e => this.setState({ title: e.target.value })}/>
+                        <Form.Control type="text" placeholder="Enter title" onChange={e => this.setState({ title: e.target.value })} />
                     </Form.Group>
 
                     {
-                        this.state.events.map((event, i)=>(
-                            <div>
-                                <Form.Label><b><big>Event {i+1}</big></b></Form.Label>
+                        this.state.events.map((event, i) => (
+                            <div key={i}>
+                                <Form.Label><b><big>Event {i + 1}</big></b></Form.Label>
                                 <Form.Group controlId="date" className="mb-3">
                                     <Form.Label>Select Date</Form.Label>
-                                    <Form.Control type="date" name="date" placeholder="Date of Event" value={event.date} disabled/>
+                                    <Form.Control type="date" name="date" placeholder="Date of Event" value={event.date} disabled />
                                 </Form.Group>
                                 <Form.Group controlId="start" className="mb-3">
                                     <Form.Label>Start Time</Form.Label>
-                                    <Form.Control type="time" name="startTime" placeholder="Start Time" value={event.startTime} disabled/>
+                                    <Form.Control type="time" name="startTime" placeholder="Start Time" value={event.startTime} disabled />
                                 </Form.Group>
                                 <Form.Group controlId="end" className="mb-3">
                                     <Form.Label>End Time</Form.Label>
-                                    <Form.Control type="time" name="endTime" placeholder="End Time" value={event.endTime} disabled/>
+                                    <Form.Control type="time" name="endTime" placeholder="End Time" value={event.endTime} disabled />
                                 </Form.Group>
                                 <Form.Group controlId="screen" className="mb-3">
                                     <Form.Label>Screening Room</Form.Label>
-                                    <Form.Control type="text" name="screeningRoom" placeholder="Screening Room" value={event.screeningRoom} disabled/>
+                                    <Form.Control type="text" name="screeningRoom" placeholder="Screening Room" value={event.screeningRoom} disabled />
                                 </Form.Group>
                                 <Button className="mb-3" variant="primary" onClick={this.removeEvent.bind(this, i)}>
-                                    Delete Event {i+1}
+                                    Delete Event {i + 1}
                                 </Button>
                             </div>
                         ))
@@ -94,19 +114,26 @@ export class CreateMovie extends Component {
                     <Form.Label><b><big>New Event</big></b></Form.Label>
                     <Form.Group controlId="date" className="mb-3">
                         <Form.Label>Select Date</Form.Label>
-                        <Form.Control type="date" name="date" placeholder="Date of Event" value={this.state.date} onChange={e => this.setState({ date: e.target.value })}/>
+                        <Form.Control type="date" name="date" placeholder="Date of Event" value={this.state.date} onChange={e => this.setState({ date: e.target.value })} />
                     </Form.Group>
                     <Form.Group controlId="start" className="mb-3">
                         <Form.Label>Start Time</Form.Label>
-                        <Form.Control type="time" name="startTime" placeholder="Start Time" value={this.state.startTime} onChange={e => this.setState({ startTime: e.target.value })}/>
+                        <Form.Control type="time" name="startTime" placeholder="Start Time" value={this.state.startTime} onChange={e => this.setState({ startTime: e.target.value })} />
                     </Form.Group>
                     <Form.Group controlId="end" className="mb-3">
                         <Form.Label>End Time</Form.Label>
-                        <Form.Control type="time" name="endTime" placeholder="End Time" value={this.state.endTime} onChange={e => this.setState({ endTime: e.target.value })}/>
+                        <Form.Control type="time" name="endTime" placeholder="End Time" value={this.state.endTime} onChange={e => this.setState({ endTime: e.target.value })} />
                     </Form.Group>
                     <Form.Group controlId="screen" className="mb-3">
                         <Form.Label>Screening Room</Form.Label>
-                        <Form.Control type="text" name="screeningRoom" placeholder="Screening Room" value={this.state.screeningRoom} onChange={e => this.setState({ screeningRoom: e.target.value })}/>
+                        <Form.Control as="select" name="screeningRoom" placeholder="Screening Room" onChange={e => this.setState({ screeningRoom: e.target.value })} value={Object.values(this.state.screens)[0]}>
+                            <option selected={true} disabled value="-1">SELECT AN OPTION</option>
+                            {Object.values(this.state.screens).map((screen, idx) => {
+                                return (
+                                    <option key={screen} value={screen}>{Object.keys(this.state.screens)[idx]}</option>
+                                );
+                            })}
+                        </Form.Control>
                     </Form.Group>
                     <Button className="mb-3" variant="primary" onClick={this.addEvent.bind(this)}>
                         Add Event
@@ -114,10 +141,10 @@ export class CreateMovie extends Component {
 
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Label>Movie Image</Form.Label>
-                        <Form.Control type="file"  onChange={e => this.setState({ file: e.target.value })}/>
+                        <Form.Control type="file" onChange={e => this.setState({ file: e.target.files[0] })} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={this.addMovie.bind(this)}>
+                    <Button variant="primary" onClick={this.addMovie.bind(this)}>
                         Add Movie
                     </Button>
                 </Form>
