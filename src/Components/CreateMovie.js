@@ -126,7 +126,7 @@ export class CreateMovie extends Component {
                     </Form.Group>
                     <Form.Group controlId="screen" className="mb-3">
                         <Form.Label>Screening Room</Form.Label>
-                        <Form.Control as="select" name="screeningRoom" placeholder="Screening Room" onChange={e => this.setState({ screeningRoom: e.target.value })} value={Object.values(this.state.screens)[0]}>
+                        <Form.Control as="select" name="screeningRoom" placeholder="Screening Room" onChange={e => this.setState({ screeningRoom: e.target.value })} defaultValue={Object.values(this.state.screens)[0]}>
                             <option selected={true} disabled value="-1">SELECT AN OPTION</option>
                             {Object.values(this.state.screens).map((screen, idx) => {
                                 return (
