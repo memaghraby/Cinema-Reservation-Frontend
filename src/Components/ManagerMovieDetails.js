@@ -3,12 +3,15 @@ import Seats from './Seats.js'
 import NavBar from '../Components/Navbar'
 import Img from './image.jpg'
 import "./MovieDetails.css";
+import { ConfigContext } from '../Context/ConfigContext'
 
 /**
  * Movie Details
  * @extends Component
  */
 export class ManagerMovieDetails extends Component {
+    static contextType = ConfigContext;
+
     state = {
         "name": "SpiderMan",
         "artists": [],
@@ -20,15 +23,15 @@ export class ManagerMovieDetails extends Component {
         "seconds": 0,
     };
 
-    componentDidMount(){}
-    
+    componentDidMount() { }
+
     render() {
         return (
             <div id='movie-details-div-id' className='container-fluid'>
                 <NavBar></NavBar>
                 <div className='movie-details-div'>
                     <div className="movie-image-div">
-                        <img className="movie-image" src={Img} alt="movie pic"/>
+                        <img className="movie-image" src={Img} alt="movie pic" />
                     </div>
                     <div className="movie-name-div">
                         <p className="movie-name"><big><b>{this.state.name}</b></big></p>
@@ -36,17 +39,17 @@ export class ManagerMovieDetails extends Component {
                         <select name="times" id="times">
                             {
                                 this.state.movie_times.map((movie_time) => (
-                                    <option value={movie_time}>{movie_time}</option>
+                                    <option key={movie_time} value={movie_time}>{movie_time}</option>
                                 ))
                             }
                         </select>
                     </div>
                 </div>
-                <hr/>
+                <hr />
                 <div className='seats-layout-div'>
-                    <Seats/>
+                    <Seats />
                 </div>
-                <hr/>
+                <hr />
                 <div className='movie-details-button-div'>
                     <button className="movie-details-button" name="EDIT MOVIE">Edit Movie</button>
                 </div>
