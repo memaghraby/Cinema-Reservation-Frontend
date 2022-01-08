@@ -47,7 +47,7 @@ export class ManagerMovieRow extends Component {
           <p className="movie-row-name"><big><b>{this.state.name}</b></big></p>
         </div>
         <div className="movie-row-buttons-div">
-          <Link to={"/moviedetails/" + this.state.id} onClick={this.handleClick}>
+          <Link to={"/managermoviedetails/" + this.state.id} onClick={this.handleClick}>
             <button className="movie-row-button" name="VIEW">View</button>
           </Link>
           <Link to={"/editmoviedetails/" + this.state.id} onClick={this.handleClick}>

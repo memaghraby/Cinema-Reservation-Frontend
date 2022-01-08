@@ -96,7 +96,8 @@ export class EditMovie extends Component {
         axios.patch('/movies/manager/details/' + id, movieFormData, {
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data",
+                "Access-Control-Allow-Headers" : 'GET,POST,PATCH,DELETE'
             }
         }).then((response) => {
             console.log(response.data);

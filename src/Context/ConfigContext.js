@@ -10,11 +10,11 @@ class ConfigContextProvider extends Component {
      * @memberof ConfigContextProvider
      *
      */
-    baseURL: "http://localhost:3001",
+    baseURL: "http://localhost:8080",
 
   };
   componentDidMount() {
-    axios.defaults.baseURL = "http://localhost:3001";
+    axios.defaults.baseURL = "http://localhost:8080";
   }
 
   render() {

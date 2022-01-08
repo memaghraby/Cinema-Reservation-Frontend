@@ -40,6 +40,7 @@ export class CreateMovie extends Component {
             screeningRoom: ""
         });
         console.log(this.state.events);
+        document.getElementById('screen-room').value = '-1'
     }
 
     removeEvent(i) {
@@ -66,10 +67,22 @@ export class CreateMovie extends Component {
                 'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 "Content-Type": "multipart/form-data"
             }
-        }).then((response) => {
-            console.log(response.data);
+        }).then((res) => {
+            if(res.status===200) // Successful
+            {
+                
+                if(res.data.success===true)
+                {
+                    alert("Movie added")
+                    window.location.reload(false);
+                }
+                else
+                {
+                    this.setState({errorMessage: res.data.name});
+                }
+            }
         }).catch((error) => {
-            console.log(error.response);
+            console.log(error.res);
         });
         return false;
     }
@@ -90,7 +103,7 @@ export class CreateMovie extends Component {
                                 <Form.Label><b><big>Event {i + 1}</big></b></Form.Label>
                                 <Form.Group controlId="date" className="mb-3">
                                     <Form.Label>Select Date</Form.Label>
-                                    <Form.Control type="date" name="date" placeholder="Date of Event" value={event.date} disabled />
+                                    <Form.Control type="text" name="date" placeholder="Date of Event" value={event.date} disabled />
                                 </Form.Group>
                                 <Form.Group controlId="start" className="mb-3">
                                     <Form.Label>Start Time</Form.Label>
@@ -126,7 +139,7 @@ export class CreateMovie extends Component {
                     </Form.Group>
                     <Form.Group controlId="screen" className="mb-3">
                         <Form.Label>Screening Room</Form.Label>
-                        <Form.Control as="select" name="screeningRoom" placeholder="Screening Room" onChange={e => this.setState({ screeningRoom: e.target.value })} defaultValue={Object.values(this.state.screens)[0]}>
+                        <Form.Control id='screen-room' as="select" name="screeningRoom" placeholder="Screening Room" onChange={e => this.setState({ screeningRoom: e.target.value })} defaultValue={-1}>
                             <option selected={true} disabled value="-1">SELECT AN OPTION</option>
                             {Object.values(this.state.screens).map((screen, idx) => {
                                 return (

@@ -34,6 +34,14 @@ export class CustomerSeats extends Component {
     };
 
     reserveSeats(){
+        if(this.props.event_id === ""){
+            alert("select event");
+            return
+        }
+        if(this.state.selected_seats.length === 0){
+            alert("Select seats");
+            return;
+        }
         const eventid = this.props.event_id
         const movieid = localStorage.getItem("movie_id")
         console.log(localStorage.getItem('userId'))

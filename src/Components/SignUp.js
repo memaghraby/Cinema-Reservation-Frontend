@@ -18,6 +18,7 @@ class SignUp extends Component {
     this.state ={
         email:'',
         password:'',
+        confirmPassword:'',
         username:'',
         gender:'',
         day:'',
@@ -29,6 +30,7 @@ class SignUp extends Component {
         city:'',
         role:'customer',
         emptypass:false,
+        emptypassconfirm:false,
         emptyemail:false,
         emptyfirst:false,
         emptylast:false,
@@ -57,7 +59,9 @@ class SignUp extends Component {
     
         if(type==="pass")
         {
-            isValid = value.length >= 8 && isValid
+            const pattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/
+            //isValid = value.length >= 8 && isValid
+            isValid = pattern.test (value) && isValid
         }
     
         if(type==="username")
@@ -187,7 +191,7 @@ class SignUp extends Component {
             this.setState({gendererror: true});
 
         console.log(this.state);
-        if(this.state.email!=='' && this.state.role!=='' && this.state.address!=='' && this.state.last!=='' && this.state.first!=='' && this.state.password!=='' && this.state.gender!=='' && this.state.username!=='' && this.state.day!=='' && this.state.month!=='' && this.state.year!=='' )
+        if(this.state.email!=='' && this.state.role!=='' && this.state.address!=='' && this.state.last!=='' && this.state.first!=='' && this.state.password!=='' && this.state.gender!=='' && this.state.username!=='' && this.state.day!=='' && this.state.month!=='' && this.state.year!=='')
         {
             let data = {   
                 "email":this.state.email,
@@ -217,7 +221,7 @@ class SignUp extends Component {
                     
                     if(res.data.success===true)
                     {
-                         this.setState({errorMessage: 'Sign up Successful: but wait for admin to approve your account'});
+                         this.setState({errorMessage: 'Sign up Successful'});
                     }
                     else
                     {
@@ -456,7 +460,7 @@ class SignUp extends Component {
             <input type="password" data-type="psw" onChange={this.inputChangeHandler} id="sign-up-form-password" className="form-control mb-3" placeholder="Password" maxLength="30" minLength="8" data-err="Enter Correct Password" aria-describedby="defaultRegisterFormPasswordHelpBlock" required></input>
             {this.state.emptypass===true?
             <div id="empty-pass" className="error-message">
-            Please enter a valid password (Minimum Length 8).
+            Please enter a valid password (Minimum eight characters, at least one letter and one number).
             </div>
             :
             <div>

@@ -14,8 +14,7 @@ import SignUp from './Components/SignUp.js'
 
 import ManagerMoviesList from './Components/ManagerMoviesList.js'
 import CreateMovie from './Components/CreateMovie.js'
-//import EditMovie from './Components/EditMovie.js'
-import ManagerMovieDetails from './Components/ManagerMovieDetails.js'
+import EditMovie from './Components/EditMovie';
 
 import CustomerMoviesList from './Components/CustomerMoviesList.js'
 import CustomerMovieDetails from './Components/CustomerMovieDetails.js'
@@ -24,7 +23,6 @@ import CustomerReservationsList from './Components/CustomerReservationsList.js'
 import MoviesList from './Components/MoviesList.js'
 import MovieDetails from './Components/MovieDetails.js'
 
-import EditMovie from './Components/EditMovie';
 
 //Routes
 import { CustomerProtectedRoute } from './ProtectedRoutes/CustomerProtectedRoute.js'
@@ -64,15 +62,13 @@ function App() {
             <Route exact path='/signup' element={<NotLoggedInRoute />}>
               <Route exact path='/signup' element={<SignUp />} />
             </Route>
-            <Route exact path='/createmovie' element={<NotLoggedInRoute />}>
-              <Route exact path='/createmovie' element={<CreateMovie />}></Route>
-            </Route>
             <Route exact path='/movieslist' element={<NotLoggedInRoute />}>
               <Route exact path='/movieslist' element={<MoviesList />}></Route>
             </Route>
             <Route exact path='/moviedetails/:id' element={<NotLoggedInRoute />}>
               <Route exact path='/moviedetails/:id' element={<MovieDetails />}></Route>
             </Route>
+
             {/*Manager */}
             <Route exact path='/managermovieslist' element={<ManagementProtectedRoute />}>
               <Route exact path='/managermovieslist' element={<ManagerMoviesList />} />
@@ -80,12 +76,13 @@ function App() {
             <Route exact path='/createmovie' element={<ManagementProtectedRoute />}>
               <Route exact path='/createmovie' element={<CreateMovie />} />
             </Route>
-            <Route exact path='/managermoviedetails/:id' element={<ManagementProtectedRoute />}>
-              <Route exact path='/managermoviedetails/:id' element={<ManagerMovieDetails />} />
-            </Route>
             <Route exact path='/editmoviedetails/:id' element={<ManagementProtectedRoute />}>
               <Route exact path='/editmoviedetails/:id' element={<EditMovie />} />
             </Route>
+            <Route exact path='/managermoviedetails/:id' element={<ManagementProtectedRoute />}>
+              <Route exact path='/managermoviedetails/:id' element={<MovieDetails />} />
+            </Route>
+
             {/*Customer */}
             <Route exact path='/customermovieslist' element={<CustomerProtectedRoute />}>
               <Route exact path='/customermovieslist' element={<CustomerMoviesList />} />
@@ -96,6 +93,7 @@ function App() {
             <Route exact path='/customerreservations' element={<CustomerProtectedRoute />}>
               <Route exact path='/customerreservations' element={<CustomerReservationsList />} />
             </Route>
+
           </Routes>
         </ConfigContextProvider>
       </Router>

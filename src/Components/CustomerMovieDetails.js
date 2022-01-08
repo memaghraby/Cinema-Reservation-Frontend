@@ -90,6 +90,10 @@ export class CustomerMovieDetails extends Component {
     }
 
     reserveSeats(){
+        this.setState({
+            eventid: "",
+        })
+        alert("Seats Reserved");
         window.location.reload(false);
     }
     
