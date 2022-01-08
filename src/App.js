@@ -54,10 +54,9 @@ function App() {
       <Router>
         <ConfigContextProvider>
           <Routes>
-
             {/*Not Logged In */}
-            <Route exact path='/login' element={<NotLoggedInRoute />}>
-              <Route exact path='/login' element={<Login />} />
+            <Route exact path='/' element={<NotLoggedInRoute />}>
+              <Route exact path='/' element={<Login />} />
             </Route>
             <Route exact path='/signup' element={<NotLoggedInRoute />}>
               <Route exact path='/signup' element={<SignUp />} />
@@ -71,7 +70,6 @@ function App() {
             <Route exact path='/moviedetails/:id' element={<NotLoggedInRoute />}>
               <Route exact path='/moviedetails/:id' element={<MovieDetails />}></Route>
             </Route>
-
             {/*Manager */}
             <Route exact path='/managermovieslist' element={<ManagementProtectedRoute />}>
               <Route exact path='/managermovieslist' element={<ManagerMoviesList />} />
@@ -85,13 +83,9 @@ function App() {
             <Route exact path='/editmoviedetails/:id' element={<ManagementProtectedRoute />}>
               <Route exact path='/editmoviedetails/:id' element={<EditMovie />} />
             </Route>
-
             {/*Customer */}
             <Route exact path='/customermovieslist' element={<CustomerProtectedRoute />}>
               <Route exact path='/customermovieslist' element={<CustomerMoviesList />} />
-            </Route>
-            <Route exact path='/createmovie' element={<CustomerProtectedRoute />}>
-              <Route exact path='/createmovie' element={<CreateMovie />} />
             </Route>
             <Route exact path='/customermoviedetails/:id' element={<CustomerProtectedRoute />}>
               <Route exact path='/customermoviedetails/:id' element={<CustomerMovieDetails />} />
@@ -99,8 +93,6 @@ function App() {
             <Route exact path='/customerreservations' element={<CustomerProtectedRoute />}>
               <Route exact path='/customerreservations' element={<CustomerReservationsList />} />
             </Route>
-
-
           </Routes>
         </ConfigContextProvider>
       </Router>

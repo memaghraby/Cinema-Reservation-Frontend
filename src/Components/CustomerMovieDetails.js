@@ -3,6 +3,7 @@ import CustomerSeats from './CustomerSeats.js'
 import Img from './image.jpg'
 import "./MovieDetails.css";
 import axios from 'axios'
+import NavBar from '../Components/Navbar'
 import {ConfigContext} from '../Context/ConfigContext'
 
 /**
@@ -95,6 +96,7 @@ export class CustomerMovieDetails extends Component {
     render() {
         return (
             <div id='movie-details-div-id' className='container-fluid'>
+                <NavBar></NavBar>
                 <div className='movie-details-div'>
                     <div className="movie-image-div">
                         <img className="movie-image" src={this.state.movie_image} alt="movie pic"/>

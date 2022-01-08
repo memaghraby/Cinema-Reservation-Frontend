@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ManagerMovieRow from './ManagerMovieRow.js'
+import NavBar from '../Components/Navbar'
 import "./MoviesList.css";
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -36,6 +37,7 @@ export class ManagerMoviesList extends Component {
     render() {
         return (
             <div id='movies-list-div' className='container-fluid'>
+                <NavBar></NavBar>
                 <div>
                     <hr />
                     {

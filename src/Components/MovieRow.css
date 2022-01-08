@@ -32,3 +32,8 @@
     height: 30%;
     margin: 10px;
 }
+@media (max-width:1400px){
+    #movie-row-div .movie-row-button{
+        height: 50px;
+    }
+}
