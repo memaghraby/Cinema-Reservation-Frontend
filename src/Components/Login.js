@@ -13,10 +13,10 @@ class LogIn extends Component {
 
     constructor() {
         super()
-        if (localStorage.getItem("userType") == "manager")
-            window.location.href = "/managermovieslist";
-        else if (localStorage.getItem("userType") == "customer")
-            window.location.href = "/customermovieslist";
+        // if (localStorage.getItem("userType") !== null && localStorage.getItem("userType") == "manager")
+        //     window.location.href = "/managermovieslist";
+        // else if (localStorage.getItem("userType") !== null && localStorage.getItem("userType") == "customer")
+        //     window.location.href = "/customermovieslist";
         this.state = {
             user: {
                 email: '',
@@ -209,6 +209,69 @@ class LogIn extends Component {
                             <hr />
                             <div className="center-box-2">
 
+
+                                {this.state.errorMessage !== '' ?
+                                    (
+                                        <div id="invalid-message">
+                                            {this.state.errorMessage}
+                                        </div>
+                                    )
+                                    :
+                                    (
+                                        <div>
+                                        </div>
+                                    )
+                                }
+
+                                <form className="text-center p-2" action="">
+
+                                    <div className="col-xs-12">
+                                        <div className="divider">
+                                            <strong className="divider-title ng-binding">LOGIN</strong>
+                                        </div>
+                                    </div>
+
+
+                                    <input required type="email" id="form-email" onChange={this.handleEmailChange} className="form-control" placeholder="Email address" />
+
+                                    {this.state.emptyemail === true ?
+                                        <div id="empty-email" className="error-message">
+                                            Please enter a valid email address.
+                                        </div>
+                                        :
+                                        <div>
+                                        </div>
+                                    }
+
+                                    <input required type="password" id="form-password" maxLength="30" minLength="8" onChange={this.handlePasswordChange} className="form-control" placeholder="Password" aria-describedby="defaultRegisterFormPasswordHelpBlock" />
+
+                                    {this.state.emptypass === true ?
+                                        <div id="empty-pass" className="error-message">
+                                            Please enter a valid password. (Minimum Length=8)
+                                        </div>
+                                        :
+                                        <div>
+                                        </div>
+                                    }
+
+                                    <br />
+                                    <div className="custom-control custom-checkbox" id="remember-me">
+                                        <input type="checkbox" className="custom-control-input" id="defaultUnchecked" />
+                                        <label className="custom-control-label" htmlFor="defaultUnchecked">Remember me</label>
+                                    </div>
+
+                                    <button id="login" type="button" className="my-button" onClick={this.handleLogin}>LOG IN</button>
+                                    <br />
+                                    <Link to="/password-reset">Forgot your password?</Link>
+                                    <hr /><br />
+                                    <h6>Don't have an account?</h6>
+                                    <Link to="/signup"><button type="button" className="my-button" id="sign-up-now">SIGN UP FOR My-Cinema</button></Link>
+                                    <Link to="/movieslist"><button type="button" className="my-button" id="view-guest">VIEW AS GUEST</button></Link>
+                                    <hr />
+                                    <p> you will be registered and agree to My-Cinema's
+                                        <a href="" target="_blank "> Terms and Conditions</a> and
+                                        <a href="" target="_blank "> Privacy Policy</a>.</p>
+                                </form>
 
                             </div>
                         </div>

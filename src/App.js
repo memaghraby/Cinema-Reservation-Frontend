@@ -58,6 +58,9 @@ function App() {
             <Route exact path='/' element={<NotLoggedInRoute />}>
               <Route exact path='/' element={<Login />} />
             </Route>
+            <Route exact path='/login' element={<NotLoggedInRoute />}>
+              <Route exact path='/login' element={<Login />} />
+            </Route>
             <Route exact path='/signup' element={<NotLoggedInRoute />}>
               <Route exact path='/signup' element={<SignUp />} />
             </Route>
