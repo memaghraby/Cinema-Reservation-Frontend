@@ -52,7 +52,6 @@ export class CustomerSeats extends Component {
             headers: headers
         })
         .then(res => {
-            console.log("hhh");
             if(res.status===200) // Successful
             {
 

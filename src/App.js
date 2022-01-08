@@ -40,8 +40,8 @@ function App() {
         <Routes>
 
           {/*Not Logged In */}
-          <Route exact path='/login' element={<NotLoggedInRoute/>}>
-            <Route exact path='/login' element={<Login/>}/>
+          <Route exact path='/' element={<NotLoggedInRoute/>}>
+            <Route exact path='/' element={<Login/>}/>
           </Route>
           <Route exact path='/signup' element={<NotLoggedInRoute/>}>
             <Route exact path='/signup' element={<SignUp/>}/>
@@ -70,9 +70,6 @@ function App() {
           {/*Customer */}
           <Route exact path='/customermovieslist' element={<CustomerProtectedRoute/>}>
             <Route exact path='/customermovieslist' element={<CustomerMoviesList/>}/>
-          </Route>
-          <Route exact path='/createmovie' element={<CustomerProtectedRoute/>}>
-            <Route exact path='/createmovie' element={<CreateMovie/>}/>
           </Route>
           <Route exact path='/customermoviedetails/:id' element={<CustomerProtectedRoute/>}>
             <Route exact path='/customermoviedetails/:id' element={<CustomerMovieDetails/>}/>

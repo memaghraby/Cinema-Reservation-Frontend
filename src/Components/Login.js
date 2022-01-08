@@ -195,12 +195,12 @@ class LogIn extends Component {
     return (
         
         <div id="my-sign-up">
-            {/* {logInOrNot==="connected" ? (
+            {logInOrNot==="connected" ? (
             <div>
             <Navigate to="/customermovieslist"/>
             </div>
             )
-            : */}
+            :
             (
                 <div style={{minHeight:'80vh'}}>
                 {/* <img id="logo" src={spotify_black_logo} alt=""/> */}

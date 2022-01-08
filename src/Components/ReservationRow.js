@@ -1,62 +1,73 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./MovieRow.css";
-import Img from './image.jpg'
-import { Link } from "react-router-dom";
+import {ConfigContext} from '../Context/ConfigContext'
+import axios from 'axios'
 
 /**
  * Movie Row class
  * @extends Component
  */
 export class ReservationRow extends Component {
+  static contextType=ConfigContext;
+
   state = {
-    "name": "",
-    "id": "",
-    "time":Date,
-    "reservation_image": '',
-    "duration_ms": Number,
-    "minutes": 0,
-    "seconds": 0,
+    "id": ""
   };
 
   componentDidMount() {
-    // this.props.reservation.artists.map((artist) =>
-    //     this.setState({ artists: artist.name })
-    // );
-    this.setState({
-        name: this.props.reservation.name,
-        id: this.props.reservation.id,
-        time: this.props.reservation.time,
-        duration_ms: this.props.reservation.duration_ms,
-        reservation_image: this.props.reservation.image
-    });
-    this.millisToMinutesAndSeconds(this.props.reservation.duration_ms);
+    this.setState({id: this.props.reservation.reservationid})
   }
 
-  millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
-    this.setState({
-      minutes: minutes,
-      seconds: seconds,
-    });
+  cancelReservation(){
+    const headers = {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'id': localStorage.getItem('userId')
+    }
+
+    console.log("reservation id: ")
+    console.log(this.state.id)
+    axios.delete(this.context.baseURL+'/movies/customer/reserve',
+    {
+        headers: headers,
+        data:{
+          reservationid: this.state.id
+        }
+    })
+    .then(res => {
+        if(res.status===200) // Successful
+        {
+            if(res.data.success===true)
+            {
+                alert("Reservation Cancelled Successfully");
+                window.location.reload(false);
+            }
+            else
+            {
+                this.setState({errorMessage: res.data.name});
+            }
+        }
+        else
+        {               }
+    })
+    .catch(err =>{
+        alert(err)
+    })
   }
 
   render() {
     return (
         <div id="movie-row-div" className="container-fluid">
             <div className="movie-row-image-div">
-              <img className="movie-row-image" src={Img} alt="reservation pic"/>
+              <img className="movie-row-image" src={this.props.reservation.posterImage} alt="reservation pic"/>
             </div>
             <div className="movie-row-details-div">
-              <p className="movie-row-name"><big><b>{this.state.name}</b></big></p>
-              <p className="movie-row-duration"><big>{this.state.minutes} mins</big></p>
-              <p className="movie-row-duration"><big>{this.state.time}</big></p>
+              <p className="movie-row-name"><big><b>{this.props.reservation.title}</b></big></p>
+              <p className="movie-row-duration"><big>{this.props.reservation.event.date}</big></p>
+              <p className="movie-row-duration"><big>{this.props.reservation.event.startTime} - {this.props.reservation.event.endTime}</big></p>
             </div>
             <div className="movie-row-buttons-div">
-              <Link to="/MovieDetails">
-                <button className="movie-row-button" name="Cancel">Cancel</button>
-              </Link>
+                <button className="movie-row-button" name="Cancel" onClick={this.cancelReservation.bind(this)}>Cancel</button>
             </div>
         </div>
     );

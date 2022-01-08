@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Seats from './Seats.js'
+import NavBar from '../Components/Navbar'
 import Img from './image.jpg'
 import "./MovieDetails.css";
 
@@ -24,6 +25,7 @@ export class ManagerMovieDetails extends Component {
     render() {
         return (
             <div id='movie-details-div-id' className='container-fluid'>
+                <NavBar></NavBar>
                 <div className='movie-details-div'>
                     <div className="movie-image-div">
                         <img className="movie-image" src={Img} alt="movie pic"/>

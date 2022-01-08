@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CustomerMovieRow from './CustomerMovieRow.js'
 import {ConfigContext} from '../Context/ConfigContext'
+import NavBar from '../Components/Navbar'
 import "./MoviesList.css";
 import { Link } from "react-router-dom";
 import axios from 'axios'
@@ -39,6 +40,7 @@ export class CustomerMoviesList extends Component {
     render() {
         return (
             <div id='movies-list-div' className='container-fluid'>
+                <NavBar></NavBar>
                 <div>
                     <hr/>
                     {
